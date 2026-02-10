@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:health_camps/data/services/secure_storage_service.dart';
 
 class ApiClient {
   ApiClient._() {
@@ -62,8 +63,7 @@ class ApiClient {
 
   //TOKEN
   Future<String?> _getToken() async {
-    // Later: replace with SecureStorage
-    return null;
+    return await SecureStorageService.getToken();
   }
 
   //ERROR HANDLER
