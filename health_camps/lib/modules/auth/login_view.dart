@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:health_camps/data/services/api_client.dart';
+import 'package:health_camps/data/services/testHealthApis.dart';
 
 class LoginView extends StatefulWidget {
-  LoginView({super.key});
+  const LoginView({super.key});
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -16,6 +18,21 @@ class _LoginViewState extends State<LoginView> {
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _testHealthApi();
+  }
+
+  void _testHealthApi() async {
+    try {
+      final response = await ApiClient.instance.get('/');
+      debugPrint('Health API Success: ${response.data}');
+    } catch (e) {
+      debugPrint('Health API Error: $e');
+    }
   }
 
   @override
@@ -67,6 +84,7 @@ class _LoginViewState extends State<LoginView> {
                   child: ElevatedButton(
                     onPressed: () {
                       // for now, empty
+                      TestHealthApi.showHealthDialog(context);
                     },
                     child: const Text('Login'),
                   ),
